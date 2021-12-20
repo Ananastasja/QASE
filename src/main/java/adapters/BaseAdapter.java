@@ -16,9 +16,9 @@ public class BaseAdapter {
                 given()
                         .header("Token", TOKEN)
                         .header("Content-Type", "application/json")
-                        .when()
+                .when()
                         .get(BASE_URL + url)
-                        .then()
+                .then()
                         .log().all()
                         .extract().body().asString();
     }
@@ -29,9 +29,21 @@ public class BaseAdapter {
                         .header("Token", TOKEN)
                         .header("Content-Type", "application/json")
                         .body(body)
-                        .when()
+                .when()
                         .post(BASE_URL + url)
-                        .then()
+                .then()
+                        .log().all()
+                        .extract().response();
+    }
+
+    public Response delete(String url) {
+        return
+                given()
+                        .header("Token", TOKEN)
+                        .header("Content-Type", "application/json")
+                .when()
+                        .delete(BASE_URL + url)
+                .then()
                         .log().all()
                         .extract().response();
     }
