@@ -3,7 +3,6 @@ package tests;
 import adapters.BaseAdapter;
 import adapters.ProjectsAdapter;
 import adapters.SuiteAdapter;
-import io.restassured.response.ResponseBody;
 import objects.Project;
 import objects.Suite;
 import org.testng.Assert;
@@ -43,5 +42,16 @@ public class QaseTest {
                 .build();
         boolean status = new SuiteAdapter().createDemo("QA082021", suite).path("status");
         Assert.assertTrue(status);
+    }
+
+    @Test
+    public void createAndDeleteSuiteTest() {
+        Suite suite = Suite.builder()
+                .title("Regression test")
+                .description("This is a regression test suite")
+                .build();
+        int projectId = new SuiteAdapter().create("QA082021", suite);
+        boolean deleteSuite = new SuiteAdapter().delete("QA082021", projectId);
+        Assert.assertTrue(deleteSuite);
     }
 }
